@@ -6,11 +6,14 @@ Role_of_user = ""
 def start():
 	global Role_of_user
 	Role_of_user = User_role_provider(input("Enter your role i.e(teacher/student): "),input("Enter your password: "))
+
+
 def submit_data(Role_of_user):
 	Task = ""
 	if Role_of_user == "Teacher":
 		print("\n" + Fore.YELLOW + "Namaste sir/mam !")
-		while True:
+		chance_left = 3
+		while chance_left >-1:
 			print(Fore.GREEN+ "Please choose your task: ")
 			print(Fore.GREEN+"""Type a for - Add a new student\n\tu for - Update Student details\n\tr for - Remove Student\n\tg for - Get student Details\n""" )
 			print(Fore.BLUE+"""Type 'q' to exit.""")
@@ -23,18 +26,33 @@ def submit_data(Role_of_user):
 				std_stream = str(input("Enter the stream i.e (PCM,PCB):  "))
 				for i in range(2,0,-1):
 					if std_stream.upper() == "PCM":
-						mrk_of_std_Unit_1 = input("Enter marks of Unit 1 \n(seperated by',' & format => M,P,C,Cs,IP,E,H: \n")
+						mrk_of_std_Unit_1 = ""
+						m_of_maths = input("Enter marks of maths: ")
+						m_of_chemistry = input("Enter marks of chemistry: ")
+						m_of_physics = input("Enter marks of physics: ")
+						m_of_cs = input("Enter marks of cs(if taken else leave it blank): ")
+						m_of_english = input("Enter marks of english: ")
+						m_of_Ip = input("Enter marks of ip(if taken else leave it blank):")
+						m_of_hindi = input("Enter marks of hindi(if taken else leave it blank):")
+						mrk_of_std_Unit_1 = f"{m_of_maths},{m_of_chemistry},,{m_of_physics},{m_of_cs},{m_of_english},{m_of_Ip},{m_of_hindi},"
 						break
 					elif std_stream.upper() == "PCB":
-						mrk_of_std_Unit_1 = input("Enter marks of Unit 1  \n(seperated by',' & format => B,P,C,E,H: \n")
-						break;
+						mrk_of_std_Unit_1 = ""
+						
+						m_of_chemistry = input("Enter marks of chemistry: ")
+						m_of_physics = input("Enter marks of physics: ")
+						
+						m_of_english = input("Enter marks of english: ")
+						m_of_hindi = input("Enter marks of hindi(if taken else leave it blank):")
+						mrk_of_std_Unit_1 = f"{m_of_bio},{m_of_chemistry},{m_of_physics},{m_of_english},{m_of_hindi},"
+						break
 					else:
 						print(Fore.RED+"Please enter valid option.")
 						continue;
 						
 				student_details = std_rollno+" "+std_name+" "+std_class+" "+mrk_of_std_Unit_1+" "+std_stream
-				print(Fore.BLUE + f"""\n\nNAME: {std_name}\nClass: {std_class}\nRoll no: {std_rollno}\nStream: {std_stream}\n Marks of unit 1st Test:\n {mrk_of_std_Unit_1}""")
-				a = input(Fore.YELLOW+ "Please check the details. And type 's' to save and 'c' to cancel.\n\n")
+				print(f"""\n\nNAME: {std_name}\nClass: {std_class}\nRoll no: {std_rollno}\nStream: {std_stream}\nMarks of unit 1st Test:\n {mrk_of_std_Unit_1}""")
+				a = input(Fore.YELLOW+ "\nPlease check the details.\nAnd type 's' to save and 'c' to cancel.\n\n")
 				if a.upper() == "S":
 					add_student(Role_of_user,Student_details = student_details)
 					print(Fore.GREEN+"Data Added data successfully.")
@@ -87,3 +105,4 @@ def submit_data(Role_of_user):
 
 start()
 submit_data(Role_of_user)
+#update_student_details()
